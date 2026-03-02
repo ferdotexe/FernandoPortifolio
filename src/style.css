@@ -1,0 +1,64 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@500;700&family=Sora:wght@700;800&display=swap");
+@import "tailwindcss";
+
+:root {
+  font-family: "Manrope", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+.font-name {
+  font-family: "Sora", "Manrope", "Segoe UI", sans-serif;
+  letter-spacing: 0.01em;
+}
+
+.font-role {
+  font-family: "Manrope", "Segoe UI", sans-serif;
+}
+
+.bg-dracula-bg {
+  background-color: #282a36;
+}
+
+.project-card {
+  transform-origin: center;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease, outline-color 220ms ease;
+}
+
+.project-card:hover {
+  transform: translateY(-4px) scale(1.03);
+  border-color: rgba(139, 233, 253, 0.95);
+  outline: 1px solid rgba(139, 233, 253, 0.95);
+  box-shadow: 0 22px 40px rgba(0, 0, 0, 0.35);
+}
+
+.tag-pill {
+  border-color: rgba(139, 233, 253, 0.75);
+  background-color: rgba(139, 233, 253, 0.1);
+  color: #dff7ff;
+}
+
+.projects-track {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(139, 233, 253, 0.75) transparent;
+}
+
+.projects-track::-webkit-scrollbar {
+  height: 8px;
+}
+
+.projects-track::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.projects-track::-webkit-scrollbar-thumb {
+  background-color: rgba(139, 233, 253, 0.75);
+  border-radius: 9999px;
+}
