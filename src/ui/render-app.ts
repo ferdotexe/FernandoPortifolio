@@ -43,6 +43,8 @@ const renderSocialLinks = (data: PortfolioData) =>
     )
     .join('')
 
+const toTelHref = (rawPhone: string) => `tel:${rawPhone.replace(/[^\d+]/g, '')}`
+
 const renderHero = (data: PortfolioData) => `
   <section id="hero" class="scroll-mt-24 mx-auto flex min-h-screen w-full max-w-6xl items-center px-6 py-16">
     <div class="w-full rounded-3xl border border-white/15 bg-[#1f212b] p-5 shadow-[0_24px_50px_rgba(0,0,0,0.45)] md:border-0 md:bg-transparent md:p-0 md:shadow-none">
@@ -136,7 +138,7 @@ const renderProjects = (projects: PortfolioProject[]) => {
                <button id="projects-next" type="button" aria-label="Proximo projeto" class="absolute right-2 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#8be9fd]/70 bg-[#282a36]/90 text-[#8be9fd] shadow-lg md:flex">&#8594;</button>`
             : ''
         }
-        <div id="projects-track" class="projects-track flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory px-1 py-3 -mx-1">
+        <div id="projects-track" class="projects-track flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory px-4 py-4">
           ${projects.map(renderProjectCard).join('')}
         </div>
       </div>
@@ -144,38 +146,29 @@ const renderProjects = (projects: PortfolioProject[]) => {
   `
 }
 
-const renderExperiences = (data: PortfolioData) => {
-  const [first, second] = data.experiences
+const renderExperienceMarker = (marker: 'green' | 'white') =>
+  marker === 'green' ? 'bg-green-400' : 'border border-white/70 bg-white'
 
-  return `
-    <section id="experiencia" class="scroll-mt-24 mx-auto w-full max-w-6xl px-6 pb-24">
-      <h3 class="font-name text-3xl font-extrabold leading-none md:text-4xl">Experiencia</h3>
-      <div class="mt-6 max-w-4xl">
-        <div class="relative grid grid-cols-[20px_1fr] gap-x-4 gap-y-10">
-          <span aria-hidden="true" class="absolute left-[10px] top-[10px] bottom-[10px] w-px bg-white/40"></span>
+const renderExperienceItem = (item: PortfolioData['experiences'][number]) => `
+  <span aria-hidden="true" class="relative z-10 mt-1 h-3 w-3 justify-self-center rounded-full ${renderExperienceMarker(item.marker)}"></span>
+  <div>
+    <p class="text-lg text-white"><span class="font-bold">${item.company}</span> <span class="font-light text-white/85">(${item.period})</span></p>
+    <p class="ml-4 mt-2 text-base text-white/85">Cargo: ${item.role}</p>
+    <ul class="ml-9 mt-4 list-disc space-y-2 text-white/85">${item.bullets.map((bullet) => `<li>${bullet}</li>`).join('')}</ul>
+  </div>
+`
 
-          <span aria-hidden="true" class="relative z-10 mt-1 h-3 w-3 justify-self-center rounded-full ${
-            first.marker === 'green' ? 'bg-green-400' : 'border border-white/70 bg-white'
-          }"></span>
-          <div>
-            <p class="text-lg text-white"><span class="font-bold">${first.company}</span> <span class="font-light text-white/85">(${first.period})</span></p>
-            <p class="ml-4 mt-2 text-base text-white/85">Cargo: ${first.role}</p>
-            <ul class="ml-9 mt-4 list-disc space-y-2 text-white/85">${first.bullets.map((bullet) => `<li>${bullet}</li>`).join('')}</ul>
-          </div>
-
-          <span aria-hidden="true" class="relative z-10 mt-1 h-3 w-3 justify-self-center rounded-full ${
-            second.marker === 'green' ? 'bg-green-400' : 'border border-white/70 bg-white'
-          }"></span>
-          <div>
-            <p class="text-lg text-white"><span class="font-bold">${second.company}</span> <span class="font-light text-white/85">(${second.period})</span></p>
-            <p class="ml-4 mt-2 text-base text-white/85">Cargo: ${second.role}</p>
-            <ul class="ml-9 mt-4 list-disc space-y-2 text-white/85">${second.bullets.map((bullet) => `<li>${bullet}</li>`).join('')}</ul>
-          </div>
-        </div>
+const renderExperiences = (data: PortfolioData) => `
+  <section id="experiencia" class="scroll-mt-24 mx-auto w-full max-w-6xl px-6 pb-24">
+    <h3 class="font-name text-3xl font-extrabold leading-none md:text-4xl">Experiencia</h3>
+    <div class="mt-6 max-w-4xl">
+      <div class="relative grid grid-cols-[20px_1fr] gap-x-4 gap-y-10">
+        <span aria-hidden="true" class="absolute left-[10px] top-[10px] bottom-[10px] w-px bg-white/40"></span>
+        ${data.experiences.map(renderExperienceItem).join('')}
       </div>
-    </section>
-  `
-}
+    </div>
+  </section>
+`
 
 const renderContact = (data: PortfolioData) => `
   <section id="contato" class="scroll-mt-24 mx-auto w-full max-w-6xl px-6 pb-24">
@@ -188,7 +181,7 @@ const renderContact = (data: PortfolioData) => `
         </div>
         <div class="flex items-center gap-3">
           ${icons.phone}
-          <a href="tel:+5561992659754" class="text-base text-white/90 underline-offset-4 hover:underline">${data.contact.phone}</a>
+          <a href="${toTelHref(data.contact.phone)}" class="text-base text-white/90 underline-offset-4 hover:underline">${data.contact.phone}</a>
         </div>
       </div>
     </div>
