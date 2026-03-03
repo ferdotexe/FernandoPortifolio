@@ -46,9 +46,9 @@ const renderSocialLinks = (data: PortfolioData) =>
 const toTelHref = (rawPhone: string) => `tel:${rawPhone.replace(/[^\d+]/g, '')}`
 
 const renderHero = (data: PortfolioData) => `
-  <section id="hero" class="scroll-mt-24 mx-auto flex min-h-screen w-full max-w-6xl items-center px-6 py-16">
-    <div class="w-full rounded-3xl border border-white/15 bg-[#1f212b] p-5 shadow-[0_24px_50px_rgba(0,0,0,0.45)] md:border-0 md:bg-transparent md:p-0 md:shadow-none">
-      <div class="flex flex-col items-start gap-6 md:grid md:grid-cols-[auto_1fr] md:items-center md:gap-6">
+  <section id="hero" class="scroll-mt-24 mx-auto flex min-h-screen w-full max-w-6xl items-center px-4 py-16 sm:px-6">
+    <div class="w-full max-w-full rounded-3xl border border-white/15 bg-[#1f212b] p-5 shadow-[0_24px_50px_rgba(0,0,0,0.45)] md:border-0 md:bg-transparent md:p-0 md:shadow-none">
+      <div class="flex flex-col items-center gap-6 md:grid md:grid-cols-[auto_1fr] md:items-center md:gap-6">
         <div class="flex flex-col items-center gap-4 self-center md:self-auto md:p-6">
           <div class="h-56 w-56 overflow-hidden rounded-2xl border-4 border-white/70 shadow-2xl md:h-72 md:w-72">
             <img src="${data.photoUrl}" alt="Foto de ${data.fullName}" class="h-full w-full object-cover" />
@@ -58,9 +58,9 @@ const renderHero = (data: PortfolioData) => `
           </div>
         </div>
 
-        <div class="space-y-4 text-left md:max-w-xl">
-          <h1 class="font-name text-4xl font-extrabold uppercase leading-none md:text-6xl">${data.fullName}</h1>
-          <h2 class="font-role text-xl font-medium text-white/90 md:text-2xl">${data.role}</h2>
+        <div class="min-w-0 w-full space-y-4 text-left md:max-w-xl">
+          <h1 class="font-name break-words text-3xl font-extrabold uppercase leading-none sm:text-4xl md:text-6xl">${data.fullName}</h1>
+          <h2 class="font-role break-words text-lg font-medium text-white/90 sm:text-xl md:text-2xl">${data.role}</h2>
           <p class="inline-flex items-center gap-2 rounded-full border border-white/35 bg-white/10 px-4 py-2 text-sm font-semibold tracking-wide text-white/90 backdrop-blur-sm">
             ${icons.globe}
             ${data.location}
@@ -72,12 +72,12 @@ const renderHero = (data: PortfolioData) => `
 `
 
 const renderAbout = (text: string) => `
-  <section id="sobre-mim" class="scroll-mt-24 mx-auto w-full max-w-6xl px-6 pb-14">
+  <section id="sobre-mim" class="scroll-mt-24 mx-auto w-full max-w-6xl px-4 pb-14 sm:px-6">
     <h3 class="font-name text-3xl font-extrabold uppercase leading-none md:text-4xl">SOBRE MIM</h3>
     <div class="mt-5 max-w-4xl">
-      <div class="flex items-stretch gap-4 md:gap-5">
+      <div class="flex min-w-0 items-stretch gap-4 md:gap-5">
         <span aria-hidden="true" class="w-1 shrink-0 rounded-full bg-[#8be9fd]/80"></span>
-        <p class="text-lg leading-loose text-white/90 md:text-xl">${text}</p>
+        <p class="min-w-0 break-words text-lg leading-loose text-white/90 md:text-xl">${text}</p>
       </div>
     </div>
   </section>
@@ -91,7 +91,7 @@ const renderTechnologyCard = (tech: TechnologyItem) => `
 `
 
 const renderTechnologies = (technologies: TechnologyItem[]) => `
-  <section id="tecnologias" class="scroll-mt-24 mx-auto w-full max-w-6xl px-6 pb-16">
+  <section id="tecnologias" class="scroll-mt-24 mx-auto w-full max-w-6xl px-4 pb-16 sm:px-6">
     <h3 class="font-name text-3xl font-extrabold leading-none md:text-4xl">Tecnologias:</h3>
     <div class="mt-6 flex max-w-5xl flex-wrap gap-5">
       ${technologies.map(renderTechnologyCard).join('')}
@@ -129,7 +129,7 @@ const renderProjects = (projects: PortfolioProject[]) => {
   const hasArrowControls = projects.length > 3
 
   return `
-    <section id="projetos" class="scroll-mt-24 mx-auto w-full max-w-6xl px-6 pb-20">
+    <section id="projetos" class="scroll-mt-24 mx-auto w-full max-w-6xl px-4 pb-20 sm:px-6">
       <h3 class="font-name text-3xl font-extrabold uppercase leading-none md:text-4xl">Projetos</h3>
       <div class="relative mt-6 rounded-3xl border border-[#8be9fd]/45 bg-white/[0.04] p-4 md:p-6">
         ${
@@ -151,15 +151,17 @@ const renderExperienceMarker = (marker: 'green' | 'white') =>
 
 const renderExperienceItem = (item: PortfolioData['experiences'][number]) => `
   <span aria-hidden="true" class="relative z-10 mt-1 h-3 w-3 justify-self-center rounded-full ${renderExperienceMarker(item.marker)}"></span>
-  <div>
-    <p class="text-lg text-white"><span class="font-bold">${item.company}</span> <span class="font-light text-white/85">(${item.period})</span></p>
-    <p class="ml-4 mt-2 text-base text-white/85">Cargo: ${item.role}</p>
-    <ul class="ml-9 mt-4 list-disc space-y-2 text-white/85">${item.bullets.map((bullet) => `<li>${bullet}</li>`).join('')}</ul>
+  <div class="min-w-0">
+    <p class="break-words text-lg text-white"><span class="font-bold">${item.company}</span> <span class="font-light text-white/85">(${item.period})</span></p>
+    <p class="ml-4 mt-2 break-words text-base text-white/85">Cargo: ${item.role}</p>
+    <ul class="ml-9 mt-4 list-disc space-y-2 text-white/85">${item.bullets
+      .map((bullet) => `<li class="break-words">${bullet}</li>`)
+      .join('')}</ul>
   </div>
 `
 
 const renderExperiences = (data: PortfolioData) => `
-  <section id="experiencia" class="scroll-mt-24 mx-auto w-full max-w-6xl px-6 pb-24">
+  <section id="experiencia" class="scroll-mt-24 mx-auto w-full max-w-6xl px-4 pb-24 sm:px-6">
     <h3 class="font-name text-3xl font-extrabold leading-none md:text-4xl">Experiencia</h3>
     <div class="mt-6 max-w-4xl">
       <div class="relative grid grid-cols-[20px_1fr] gap-x-4 gap-y-10">
@@ -171,7 +173,7 @@ const renderExperiences = (data: PortfolioData) => `
 `
 
 const renderContact = (data: PortfolioData) => `
-  <section id="contato" class="scroll-mt-24 mx-auto w-full max-w-6xl px-6 pb-24">
+  <section id="contato" class="scroll-mt-24 mx-auto w-full max-w-6xl px-4 pb-24 sm:px-6">
     <h3 class="font-name text-3xl font-extrabold leading-none md:text-4xl">Contato</h3>
     <div class="mt-6 max-w-5xl rounded-2xl border border-[#8be9fd]/45 bg-white/[0.04] px-4 py-3 md:px-6">
       <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-center md:gap-8">
@@ -197,7 +199,7 @@ const renderFooter = (authorName: string) => `
 `
 
 export const renderApp = (data: PortfolioData) => `
-  <main class="min-h-screen bg-dracula-bg text-white">
+  <main class="min-h-screen overflow-x-hidden bg-dracula-bg text-white">
     ${renderMenu(data)}
     ${renderHero(data)}
     ${renderAbout(data.aboutText)}
