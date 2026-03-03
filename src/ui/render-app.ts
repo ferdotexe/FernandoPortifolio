@@ -48,9 +48,9 @@ const toTelHref = (rawPhone: string) => `tel:${rawPhone.replace(/[^\d+]/g, '')}`
 const renderHero = (data: PortfolioData) => `
   <section id="hero" class="scroll-mt-24 mx-auto flex min-h-screen w-full max-w-6xl items-center px-4 py-16 sm:px-6">
     <div class="w-full max-w-full rounded-3xl border border-white/15 bg-[#1f212b] p-5 shadow-[0_24px_50px_rgba(0,0,0,0.45)] md:border-0 md:bg-transparent md:p-0 md:shadow-none">
-      <div class="flex flex-col items-center gap-6 md:grid md:grid-cols-[auto_1fr] md:items-center md:gap-6">
-        <div class="flex flex-col items-center gap-4 self-center md:self-auto md:p-6">
-          <div class="h-56 w-56 overflow-hidden rounded-2xl border-4 border-white/70 shadow-2xl md:h-72 md:w-72">
+      <div class="flex flex-col items-center gap-6 lg:grid lg:grid-cols-[auto_1fr] lg:items-center lg:gap-8">
+        <div class="flex flex-col items-center gap-4 self-center lg:self-auto lg:p-6">
+          <div class="h-52 w-52 overflow-hidden rounded-2xl border-4 border-white/70 shadow-2xl sm:h-56 sm:w-56 lg:h-72 lg:w-72">
             <img src="${data.photoUrl}" alt="Foto de ${data.fullName}" class="h-full w-full object-cover" />
           </div>
           <div class="flex items-center gap-3">
@@ -58,9 +58,9 @@ const renderHero = (data: PortfolioData) => `
           </div>
         </div>
 
-        <div class="min-w-0 w-full space-y-4 text-left md:max-w-xl">
-          <h1 class="font-name break-words text-3xl font-extrabold uppercase leading-none sm:text-4xl md:text-6xl">${data.fullName}</h1>
-          <h2 class="font-role break-words text-lg font-medium text-white/90 sm:text-xl md:text-2xl">${data.role}</h2>
+        <div class="min-w-0 w-full space-y-4 text-left lg:max-w-xl">
+          <h1 class="font-name break-words text-3xl font-extrabold uppercase leading-none sm:text-4xl lg:text-6xl">${data.fullName}</h1>
+          <h2 class="font-role break-words text-lg font-medium text-white/90 sm:text-xl lg:text-2xl">${data.role}</h2>
           <p class="inline-flex items-center gap-2 rounded-full border border-white/35 bg-white/10 px-4 py-2 text-sm font-semibold tracking-wide text-white/90 backdrop-blur-sm">
             ${icons.globe}
             ${data.location}
